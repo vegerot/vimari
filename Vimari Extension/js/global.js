@@ -52,6 +52,7 @@ function getSettings(event) {
         'closeTab': safari.extension.settings.closeTab,
         'closeTabReverse': safari.extension.settings.closeTabReverse,
         'openTab': safari.extension.settings.openTab,
+        'tabPage': safari.extension.settings.tabPage,
         'modifier': safari.extension.settings.modifier,
         'scrollSize': safari.extension.settings.scrollSize,
         'excludedUrls': safari.extension.settings.excludedUrls,

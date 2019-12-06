@@ -64,19 +64,19 @@ var actionMap = {
 		function() { window.location.reload(); },
 
 	'openTab':
-		function() { openNewTab(); },
+		function() { openNewTab(settings.tabPage); },
 
 	'closeTab':
-		function() { safari.extension.dispatchMessage("closeTab"); },
-
+        function() { closeTab(); },
+        
 	'closeTabReverse':
 		function() { safari.self.tab.dispatchMessage('closeTab', 1); },
 
 	'scrollDownHalfPage':
-		function() { window.scrollBy(0, window.innerHeight / 2); },
+		function() { window.scrollBy(0, window.innerHeight * 0.5 ); },
 
 	'scrollUpHalfPage':
-		function() { window.scrollBy(0, window.innerHeight / -2); },
+		function() { window.scrollBy(0, window.innerHeight * 0.5 ); },
 
 	'goToPageBottom':
 		function() { window.scrollBy(0, document.body.scrollHeight); },
@@ -259,10 +259,17 @@ function isExcludedUrl(storedExcludedUrls, currentUrl) {
     return false;
 }
 
-function openNewTab() {
-  console.log("-- Open new empty tab --");
-  safari.extension.dispatchMessage("openNewTab");
+function openNewTab(url="favorites:///") {
+  console.log(`-- Open new tab at ${url} --`);
+  window.open(url, url);
+  //safari.extension.dispatchMessage("openNewTab");
 }
+
+function closeTab() {
+    window.close()
+    console.log("closing tab")
+}
+
 
 // These formations removes the protocol and www so that
 // the regexp can catch less AND more specific excluded

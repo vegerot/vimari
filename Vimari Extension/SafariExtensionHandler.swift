@@ -1,11 +1,11 @@
 import SafariServices
 
 enum ActionType: String {
-    case openLinkInTab
-    case openNewTab
+    //case openLinkInTab
+//    case openNewTab
     case tabForward
     case tabBackward
-    case closeTab
+   // case closeTab
 }
 
 enum TabDirection: String {
@@ -29,17 +29,14 @@ class SafariExtensionHandler: SFSafariExtensionHandler {
 
         NSLog("Received message: \(messageName)")
         switch action {
-        case .openLinkInTab:
-            let url = URL(string: userInfo?["url"] as! String)
-            openInNewTab(url: url!)
-        case .openNewTab:
-            openNewTab()
+        //case .openLinkInTab:
+            //let url = URL(string: userInfo?["url"] as! String)
+            //openInNewTab(url: url!)
+
         case .tabForward:
             changeTab(withDirection: .forward, from: page)
         case .tabBackward:
             changeTab(withDirection: .backward, from: page)
-        case .closeTab:
-            closeTab(from: page)
         }
     }
 
@@ -51,15 +48,6 @@ class SafariExtensionHandler: SFSafariExtensionHandler {
         }
     }
 
-    func openNewTab() {
-        // Ideally this URL would be something that represents an empty tab better than localhost
-        let url = URL(string: "http://localhost")!
-        SFSafariApplication.getActiveWindow { activeWindow in
-            activeWindow?.openTab(with: url, makeActiveIfPossible: true, completionHandler: { _ in
-                // Perform some action here after the page loads
-            })
-        }
-    }
 
     func changeTab(withDirection direction: TabDirection, from page: SFSafariPage, completionHandler: (() -> Void)? = nil ) {
         page.getContainingTab(completionHandler: { currentTab in
@@ -81,12 +69,6 @@ class SafariExtensionHandler: SFSafariExtensionHandler {
         })
     }
     
-    func closeTab(from page: SFSafariPage) {
-        page.getContainingTab {
-            tab in
-            tab.close()
-        }
-    }
 
     override func toolbarItemClicked(in _: SFSafariWindow) {
         // This method will be called when your toolbar item is clicked.
